@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,7 +26,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests() //
 				.expressionHandler(expressionHandler) //
-				.anyRequest().authenticated().and() //
+				// @PreAuthorizedの代わりに以下でもOK
+//				.mvcMatchers(HttpMethod.GET, "/movie/**").access("hasPermission('rec.movie', 'read')") //
+//				.mvcMatchers(HttpMethod.GET, "/tvshow/**").access("hasPermission('rec.tvshow', 'read')") //
+				.anyRequest().authenticated() //
+				.and() //
 				.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) //
 				.and() //
