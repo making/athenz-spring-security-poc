@@ -17,8 +17,8 @@ public class AthenzTokenFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		String token = request.getHeader("X-Athenz-Principal-Auth");
 		if (token != null && !token.isEmpty()) {
-			AthenzToken cookieToken = new AthenzToken(token);
-			SecurityContextHolder.getContext().setAuthentication(cookieToken);
+			AthenzToken athenzToken = new AthenzToken(token);
+			SecurityContextHolder.getContext().setAuthentication(athenzToken);
 		}
 		filterChain.doFilter(request, response);
 
